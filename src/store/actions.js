@@ -1,11 +1,11 @@
 export default {
-  addTodo({ commit }, text) {
-    commit('addTodo'),{
+  addTodo ({ commit }, text) {
+    commit('addTodo', {
       text,
-      done:false
-    }
+      done: false
+    })
   },
-  removeTodo({ commit }, todo) {
+  removeTodo ({ commit }, todo) {
     commit('removeTodo',todo)
   },
   toggleTodo ({ commit }, todo) {

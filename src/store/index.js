@@ -8,7 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
    // todos:JSON.parse( window.locationStorage.getItem(STORAGE_KEY) || '[]')
-    todos:[]
+    todos:[{'text':'sd','done':false}]
   },
   actions,
   mutations,

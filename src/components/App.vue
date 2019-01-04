@@ -9,7 +9,7 @@
       autofocus
       autocomplete="off"
       placeholder="What needes to be done?"
-       @keyup.enter="addTodo(event)">
+       @keyup.enter="addTodo($event)">
     </header>
     <!-- main section -->
     <section class="main" v-show="todos.length">
@@ -24,7 +24,6 @@
           :key="index"
           :todo="todo"
         />
-        <li  v-for="(todo, index) in filteredTodos"  :key="index"></li>
       </ul>
     </section>
     <!-- footer -->
@@ -40,7 +39,11 @@
           <a :href="'#/'+ key" :class="{ selected: visibility === key }" @click="visibility = key">{{key | capitalize }}</a>
         </li>
       </ul>
-      <button class="clear-completed" v-show="todos.length > remaining " @click="clearCompleted()"></button>
+       <button class="clear-completed"
+        v-show="todos.length > remaining"
+        @click="clearCompleted()">
+        Clear completed
+      </button>
     </footer>
   </section>
 </template>
@@ -64,9 +67,9 @@ export default {
     };
   },
   computed: {
-    todos () {
-      return this.$store.state.todos
-    },
+    // todos () {
+    //   return this.$store.state.todos
+    // },
     allChecked () {
       return this.todos.every(todo => todo.done) //用于检测数组所有元素是否都符合指定条件（通过函数提供）
     },
@@ -76,17 +79,15 @@ export default {
     remaining () {
       return this.todos.filter(todo => !todo.done).length
     },
-    // // 映射 this.todos 为 store.state.todos
-    //  ...mapState({
-    //    todos: 'todos'
-    //  }) 
+    // 映射 this.todos 为 store.state.todos
+     ...mapState(['todos']) 
   },
-  method: {
+  methods: {
    ...mapActions([
      'toggleAll',
      'clearCompleted'
    ]),
-   addTodo (e) {
+   addTodo(e) {
      const text = e.target.value
      if(text.trim()) {
        this.$store.dispatch('addTodo',text)
